@@ -82,7 +82,7 @@ public class TanFuncTest extends BasicTest {
     private static Stream<Arguments> biggerThanOnePositiveValues() {
         return Stream.of(
                 Arguments.of(- 17 * Math.PI / 6),
-                Arguments.of(- 5 * Math.PI / 5),
+                Arguments.of(- 5 * Math.PI / 6),
                 Arguments.of(Math.PI / 6),
                 Arguments.of(13 * Math.PI / 6));
     }
