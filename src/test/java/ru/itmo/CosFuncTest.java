@@ -1,5 +1,9 @@
 package ru.itmo;
 
+import static org.mockito.ArgumentMatchers.anyDouble;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Assertions;
@@ -7,6 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 import ru.itmo.funcs.basic.trig.CosFunc;
 import ru.itmo.funcs.basic.trig.SinFunc;
@@ -17,7 +23,33 @@ public class CosFuncTest extends BasicTest{
 
     @BeforeEach
     public void setUp() {
-        sin = new SinFunc();
+        sin = mock(SinFunc.class);
+
+        // настраиваем поведение заглушки
+        when(sin.calculate(anyDouble(), anyDouble())).thenAnswer(new Answer<Double>() {
+            @Override
+            public Double answer(InvocationOnMock invocation) throws Throwable {
+                double x = invocation.getArgument(0);
+                // возвращаем значения синуса для определенных углов
+                if (x == Math.PI / 2 || x == - 3 * Math.PI / 2) {
+                    return (double) 1;
+                }
+                else if (x == - Math.PI / 2 || x == 3 * Math.PI / 2) {
+                    return (double) -1;
+                }
+                else if (x == 0 || x == Math.PI || x == - Math.PI || x == - 2 * Math.PI 
+                    || x == 2 * Math.PI || x == 3 * Math.PI || x == - 3 * Math.PI || x == 4 * Math.PI || x == - 4 * Math.PI) {
+                    return (double) 0;
+                }
+                else if (x == - Math.PI / 4 || x == - 9 * Math.PI / 4) {
+                    return Math.sin(- Math.PI / 4);
+                }
+                else if (x == Math.PI / 4 || x == 9 * Math.PI / 4) {
+                    return Math.sin(Math.PI / 4);
+                }
+                return Double.NaN;
+            }
+        });
         cos = new CosFunc(sin);
     }
 
