@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import ru.itmo.funcs.basic.trig.SinFunc;
 
-public class SinTest extends BasicTest {
+public class SinFuncTest extends BasicTest {
     
     private SinFunc sin;
 
