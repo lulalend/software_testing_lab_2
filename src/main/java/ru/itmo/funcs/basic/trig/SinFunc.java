@@ -2,23 +2,25 @@ package ru.itmo.funcs.basic.trig;
 
 import ru.itmo.funcs.basic.FactorialFunc;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class SinFunc {
 //    функция вычисляет приближённое значение ряда Тейлора для sin(x) c
 //    использованием факториала
     public double calculate(double x, double eps) {
-//        может double надо заменить на BigDecimal, если точность плохая будет
-//        либо можно округлять до скольких-то знаков, либо всё)
-
-        double result = 0;
-        int n = 0;
-        double prev;
+        BigDecimal result = new BigDecimal("0");
+        int n = 1;
+        BigDecimal prev;
 
         do {
             prev = result;
-            result += (Math.pow(-1.0, n) * Math.pow(x, 2*n + 1)/ FactorialFunc.calculate(2*n + 1));
+            result = result
+                    .add(new BigDecimal(-1).pow(n).multiply(new BigDecimal(x).pow(2 * n + 1))
+                        .divide(new BigDecimal(FactorialFunc.calculate(2*n - 1)),20, RoundingMode.HALF_UP));
             n++;
-        } while (eps / 10 <= Math.abs(result - prev));
+        } while (Math.abs(result.subtract(prev).doubleValue()) >= eps);
 
-        return result;
+        return result.doubleValue();
     }
 }
