@@ -11,6 +11,9 @@ public class SecFunc implements Func {
 
     @Override
     public double calculate(double x, double eps) {
+        if (x % (Math.PI/2) == 0.0) {
+            throw new IllegalArgumentException("sec in k*PI/2 doesn't exist");
+        }
         return 1/cos.calculate(x, eps);
     }
 }

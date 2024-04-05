@@ -12,6 +12,9 @@ public class CscFunc implements Func {
 
     @Override
     public double calculate(double x, double eps) {
+        if (x % (Math.PI) == 0.0) {
+            throw new IllegalArgumentException("csc in k*PI doesn't exist");
+        }
         return 1/sin.calculate(x, eps);
     }
 }
