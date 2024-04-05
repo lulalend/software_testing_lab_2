@@ -1,4 +1,4 @@
-package ru.itmo;
+package ru.itmo.basic.trig;
 
 import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.Mockito.mock;
@@ -14,6 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import ru.itmo.BasicTest;
 import ru.itmo.funcs.basic.trig.CosFunc;
 import ru.itmo.funcs.basic.trig.SinFunc;
 

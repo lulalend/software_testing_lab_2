@@ -1,4 +1,4 @@
-package ru.itmo;
+package ru.itmo.basic.trig;
 
 import java.util.stream.Stream;
 
@@ -8,6 +8,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import ru.itmo.BasicTest;
 import ru.itmo.funcs.basic.trig.CosFunc;
 import ru.itmo.funcs.basic.trig.SecFunc;
 import ru.itmo.funcs.basic.trig.SinFunc;
