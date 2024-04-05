@@ -26,6 +26,12 @@ public class SecFuncTest extends BasicTest {
     }
 
     @ParameterizedTest
+    @MethodSource("illegalValues")
+    public void testIllegalValues(double x) {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> sec.calculate(x, PRECISION));
+    }
+
+    @ParameterizedTest
     @MethodSource("oneValues")
     public void testOneValues(double x) {
         Assertions.assertEquals(1, sec.calculate(x, PRECISION), PRECISION);
@@ -41,6 +47,13 @@ public class SecFuncTest extends BasicTest {
     @MethodSource("middleValues")
     public void testMiddleValues(double x) {
         Assertions.assertEquals(1 / Math.cos(Math.PI / 4), sec.calculate(x, PRECISION), PRECISION);
+    }
+
+    private static Stream<Arguments> illegalValues() {
+        return Stream.of(
+            Arguments.of(Math.PI / 2),
+            Arguments.of(- Math.PI / 2),
+            Arguments.of(3 * Math.PI / 2));
     }
 
     private static Stream<Arguments> oneValues() {

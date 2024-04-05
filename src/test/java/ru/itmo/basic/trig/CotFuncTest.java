@@ -26,6 +26,12 @@ public class CotFuncTest extends BasicTest{
     }
 
     @ParameterizedTest
+    @MethodSource("illegalValues")
+    public void testIllegalValues(double x) {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> cot.calculate(x, PRECISION));
+    }
+
+    @ParameterizedTest
     @MethodSource("zeroValues")
     public void testZeroValues(double x) {
         Assertions.assertEquals(0, cot.calculate(x, PRECISION), PRECISION);
@@ -53,6 +59,14 @@ public class CotFuncTest extends BasicTest{
     @MethodSource("biggerThanOneNegativeValues")
     public void testBiggerThanOneNegativeValues(double x) {
         Assertions.assertEquals(- 1 / Math.tan(Math.PI / 3), cot.calculate(x, PRECISION), PRECISION);
+    }
+
+    private static Stream<Arguments> illegalValues() {
+        return Stream.of(
+            Arguments.of(Math.PI),
+            Arguments.of(- Math.PI),
+            Arguments.of(2 * Math.PI),
+            Arguments.of(0));
     }
 
     private static Stream<Arguments> zeroValues() {

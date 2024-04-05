@@ -26,6 +26,12 @@ public class TanFuncTest extends BasicTest {
     }
 
     @ParameterizedTest
+    @MethodSource("illegalValues")
+    public void testIllegalValues(double x) {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> tan.calculate(x, PRECISION));
+    }
+
+    @ParameterizedTest
     @MethodSource("zeroValues")
     public void testZeroValues(double x) {
         Assertions.assertEquals(0, tan.calculate(x, PRECISION), PRECISION);
@@ -53,6 +59,13 @@ public class TanFuncTest extends BasicTest {
     @MethodSource("biggerThanOneNegativeValues")
     public void testBiggerThanOneNegativeValues(double x) {
         Assertions.assertEquals(- Math.tan(Math.PI / 6), tan.calculate(x, PRECISION), PRECISION);
+    }
+
+    private static Stream<Arguments> illegalValues() {
+        return Stream.of(
+            Arguments.of(Math.PI / 2),
+            Arguments.of(- Math.PI / 2),
+            Arguments.of(3 * Math.PI / 2));
     }
 
     private static Stream<Arguments> zeroValues() {

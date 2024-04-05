@@ -23,6 +23,12 @@ public class CscFuncTest extends BasicTest{
     }
 
     @ParameterizedTest
+    @MethodSource("illegalValues")
+    public void testIllegalValues(double x) {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> csc.calculate(x, PRECISION));
+    }
+
+    @ParameterizedTest
     @MethodSource("oneValues")
     public void testOneValues(double x) {
         Assertions.assertEquals(1, csc.calculate(x, PRECISION), PRECISION);
@@ -38,6 +44,14 @@ public class CscFuncTest extends BasicTest{
     @MethodSource("middleValues")
     public void testMiddleValues(double x) {
         Assertions.assertEquals(1 / Math.sin(Math.PI / 4), csc.calculate(x, PRECISION), PRECISION);
+    }
+
+    private static Stream<Arguments> illegalValues() {
+        return Stream.of(
+            Arguments.of(Math.PI),
+            Arguments.of(- Math.PI),
+            Arguments.of(2 * Math.PI),
+            Arguments.of(0));
     }
 
     private static Stream<Arguments> oneValues() {
