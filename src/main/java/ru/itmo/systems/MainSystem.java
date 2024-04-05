@@ -15,7 +15,7 @@ public class MainSystem implements Func {
 
     @Override
     public double calculate(double x, double eps) {
-        if (x >= 0) {
+        if (x <= 0) {
             return firstFunc.calculate(x, eps);
         } else {
             return secondFunc.calculate(x, eps);
