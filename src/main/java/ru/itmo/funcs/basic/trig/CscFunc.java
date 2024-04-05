@@ -1,6 +1,8 @@
 package ru.itmo.funcs.basic.trig;
 
-public class CscFunc {
+import ru.itmo.funcs.Func;
+
+public class CscFunc implements Func {
     private final SinFunc sin;
 
 
@@ -8,6 +10,7 @@ public class CscFunc {
         this.sin = sin;
     }
 
+    @Override
     public double calculate(double x, double eps) {
         return 1/sin.calculate(x, eps);
     }

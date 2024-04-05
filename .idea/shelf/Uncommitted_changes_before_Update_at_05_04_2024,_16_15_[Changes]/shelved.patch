@@ -1,0 +1,553 @@
+Index: src/main/java/ru/itmo/funcs/basic/logarithmic/Log3Func.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.itmo.funcs.basic.logarithmic;\n\npublic class Log3Func {\n    private final LnFunc ln;\n\n    public Log3Func(LnFunc ln) {\n        this.ln = ln;\n    }\n\n    public double calculate(double x, double eps) {\n        double result = 0;\n        result += ln.calculate(x, eps)/ln.calculate(3.0, eps);\n        return result;\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/itmo/funcs/basic/logarithmic/Log3Func.java b/src/main/java/ru/itmo/funcs/basic/logarithmic/Log3Func.java
+--- a/src/main/java/ru/itmo/funcs/basic/logarithmic/Log3Func.java	(revision 2d7d15967ac5b1e4200f0d629a881c6e174da55d)
++++ b/src/main/java/ru/itmo/funcs/basic/logarithmic/Log3Func.java	(date 1712307218695)
+@@ -1,12 +1,15 @@
+ package ru.itmo.funcs.basic.logarithmic;
+ 
+-public class Log3Func {
++import ru.itmo.funcs.Func;
++
++public class Log3Func implements Func {
+     private final LnFunc ln;
+ 
+     public Log3Func(LnFunc ln) {
+         this.ln = ln;
+     }
+ 
++    @Override
+     public double calculate(double x, double eps) {
+         double result = 0;
+         result += ln.calculate(x, eps)/ln.calculate(3.0, eps);
+Index: src/main/java/ru/itmo/funcs/basic/logarithmic/Log5Func.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.itmo.funcs.basic.logarithmic;\n\npublic class Log5Func {\n    private final LnFunc ln;\n\n    public Log5Func(LnFunc ln) {\n        this.ln = ln;\n    }\n\n    public double calculate(double x, double eps) {\n        double result = 0;\n        result += ln.calculate(x, eps)/ln.calculate(5.0, eps);\n        return result;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/itmo/funcs/basic/logarithmic/Log5Func.java b/src/main/java/ru/itmo/funcs/basic/logarithmic/Log5Func.java
+--- a/src/main/java/ru/itmo/funcs/basic/logarithmic/Log5Func.java	(revision 2d7d15967ac5b1e4200f0d629a881c6e174da55d)
++++ b/src/main/java/ru/itmo/funcs/basic/logarithmic/Log5Func.java	(date 1712307218675)
+@@ -1,12 +1,15 @@
+ package ru.itmo.funcs.basic.logarithmic;
+ 
+-public class Log5Func {
++import ru.itmo.funcs.Func;
++
++public class Log5Func implements Func {
+     private final LnFunc ln;
+ 
+     public Log5Func(LnFunc ln) {
+         this.ln = ln;
+     }
+ 
++    @Override
+     public double calculate(double x, double eps) {
+         double result = 0;
+         result += ln.calculate(x, eps)/ln.calculate(5.0, eps);
+Index: logs/sin.csv
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/logs/sin.csv b/logs/sin.csv
+--- a/logs/sin.csv	(revision 2d7d15967ac5b1e4200f0d629a881c6e174da55d)
++++ b/logs/sin.csv	(date 1712308310349)
+@@ -1,0 +1,11 @@
++0.0, 0.0 
++10.0, -0.5440217912424687 
++20.0, 0.9129494928183622 
++30.0, -0.9880298724183527 
++40.0, 0.7451069199587462 
++50.0, -0.2623773482191404 
++60.0, -0.304802296373599 
++70.0, 0.7738940590890961 
++80.0, -0.9938997188010151 
++90.0, 0.8939921104184796 
++100.0, -0.5063675263035512 
+Index: src/main/java/ru/itmo/funcs/basic/trig/TanFunc.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.itmo.funcs.basic.trig;\n\npublic class TanFunc {\n    private final SinFunc sin;\n    private final CosFunc cos;\n\n    public TanFunc(SinFunc sin, CosFunc cos) {\n        this.sin = sin;\n        this.cos = cos;\n    }\n\n    public double calculate(double x, double eps) {\n        return sin.calculate(x, eps)/cos.calculate(x, eps);\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/itmo/funcs/basic/trig/TanFunc.java b/src/main/java/ru/itmo/funcs/basic/trig/TanFunc.java
+--- a/src/main/java/ru/itmo/funcs/basic/trig/TanFunc.java	(revision 2d7d15967ac5b1e4200f0d629a881c6e174da55d)
++++ b/src/main/java/ru/itmo/funcs/basic/trig/TanFunc.java	(date 1712322940408)
+@@ -1,6 +1,8 @@
+ package ru.itmo.funcs.basic.trig;
+ 
+-public class TanFunc {
++import ru.itmo.funcs.Func;
++
++public class TanFunc implements Func {
+     private final SinFunc sin;
+     private final CosFunc cos;
+ 
+@@ -9,7 +11,11 @@
+         this.cos = cos;
+     }
+ 
++    @Override
+     public double calculate(double x, double eps) {
++        if (x % (Math.PI/2) == 0.0) {
++            throw new IllegalArgumentException("tan in k*PI/2 doesn't exist");
++        }
+         return sin.calculate(x, eps)/cos.calculate(x, eps);
+     }
+ }
+Index: src/main/java/ru/itmo/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.itmo;\n\nimport ru.itmo.funcs.basic.logarithmic.LnFunc;\nimport ru.itmo.funcs.basic.trig.SinFunc;\n\npublic class Main {\n    public static void main(String[] args) {\n        try {\n            SinFunc sin = new SinFunc();\n            System.out.println(sin.calculate(100000000, 0.00001));\n        } catch (IllegalArgumentException e) {\n            System.out.println(e.getMessage());\n        }\n\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/itmo/Main.java b/src/main/java/ru/itmo/Main.java
+--- a/src/main/java/ru/itmo/Main.java	(revision 2d7d15967ac5b1e4200f0d629a881c6e174da55d)
++++ b/src/main/java/ru/itmo/Main.java	(date 1712322889253)
+@@ -1,14 +1,50 @@
+ package ru.itmo;
+ 
++import ru.itmo.funcs.Func;
+ import ru.itmo.funcs.basic.logarithmic.LnFunc;
++import ru.itmo.funcs.basic.logarithmic.Log3Func;
++import ru.itmo.funcs.basic.trig.CosFunc;
+ import ru.itmo.funcs.basic.trig.SinFunc;
++import ru.itmo.funcs.basic.trig.TanFunc;
++import ru.itmo.funcs.comlex.FirstFunc;
++
++import java.io.FileNotFoundException;
++import java.util.HashMap;
++import java.util.Map;
++import java.util.Scanner;
+ 
+ public class Main {
+     public static void main(String[] args) {
+         try {
+             SinFunc sin = new SinFunc();
+-            System.out.println(sin.calculate(100000000, 0.00001));
+-        } catch (IllegalArgumentException e) {
++            CosFunc cos = new CosFunc(sin);
++            TanFunc tan = new TanFunc(sin, cos);
++            System.out.println(tan.calculate(3*Math.PI/2, 0.00001));
++
++//            LnFunc ln = new LnFunc();
++//            Log3Func log3 = new Log3Func(ln);
++//
++//            CsvWriter csvWriter = new CsvWriter();
++//
++//            Map<String, Func> mapFunctions = new HashMap<>();
++//            mapFunctions.put("sin", sin);
++//            mapFunctions.put("cos", cos);
++//            mapFunctions.put("ln", ln);
++//            mapFunctions.put("log3", log3);
++//
++//            System.out.println("Введите начало, конец промежутка, шаг, точность, имя функции:");
++//
++//            Scanner scanner = new Scanner(System.in);
++//            double a = scanner.nextDouble();
++//            double b = scanner.nextDouble();
++//            double step = scanner.nextDouble();
++//            double eps = scanner.nextDouble();
++//            String name = scanner.next();
++//
++//            csvWriter.print(a, b, step, eps, mapFunctions.get(name), name);
++        } catch (IllegalArgumentException
++//                 | FileNotFoundException
++                 e) {
+             System.out.println(e.getMessage());
+         }
+ 
+Index: src/main/java/ru/itmo/CsvWriter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.itmo;public class CsvWriter {\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/itmo/CsvWriter.java b/src/main/java/ru/itmo/CsvWriter.java
+--- a/src/main/java/ru/itmo/CsvWriter.java	(revision 2d7d15967ac5b1e4200f0d629a881c6e174da55d)
++++ b/src/main/java/ru/itmo/CsvWriter.java	(date 1712308304941)
+@@ -1,2 +1,25 @@
+-package ru.itmo;public class CsvWriter {
++package ru.itmo;
++
++import ru.itmo.funcs.Func;
++
++import java.io.FileNotFoundException;
++import java.io.FileOutputStream;
++import java.io.PrintStream;
++
++public class CsvWriter {
++    private String filePath;
++
++    private void setFilePath(String fileName) {
++        this.filePath = fileName;
++    }
++
++    public void print(double a, double b, double step, double eps, Func function, String fileName) throws FileNotFoundException {
++        setFilePath("logs/" + fileName + ".csv");
++        for (double i = a; i <= b; i += step) {
++            double res = function.calculate(i, eps);
++            try (PrintStream printStream = new PrintStream(new FileOutputStream(filePath, true))) {
++                printStream.printf("%s, %s \n", i, res);
++            }
++        }
++    }
+ }
+Index: src/main/java/ru/itmo/funcs/Func.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.itmo.funcs;public interface Func {\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/itmo/funcs/Func.java b/src/main/java/ru/itmo/funcs/Func.java
+--- a/src/main/java/ru/itmo/funcs/Func.java	(revision 2d7d15967ac5b1e4200f0d629a881c6e174da55d)
++++ b/src/main/java/ru/itmo/funcs/Func.java	(date 1712306979229)
+@@ -1,2 +1,5 @@
+-package ru.itmo.funcs;public interface Func {
++package ru.itmo.funcs;
++
++public interface Func {
++    double calculate(double x, double eps);
+ }
+Index: src/main/java/ru/itmo/funcs/comlex/FirstFunc.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.itmo.funcs.comlex;\n\nimport ru.itmo.funcs.basic.trig.*;\n\npublic class FirstFunc {\n    private final CscFunc csc;\n    private final CosFunc cos;\n    private final TanFunc tan;\n    private final CotFunc cot;\n    private final SecFunc sec;\n\n    public FirstFunc(CscFunc csc, CosFunc cos, TanFunc tan, CotFunc cot, SecFunc sec) {\n        this.csc = csc;\n        this.cos = cos;\n        this.tan = tan;\n        this.cot = cot;\n        this.sec = sec;\n    }\n\n    public double calculate(double x, double eps) {\n        return (csc.calculate(x, eps) * csc.calculate(x, eps)\n                - cot.calculate(x, eps) / tan.calculate(x, eps))\n                * cos.calculate(x, eps) * cos.calculate(x, eps) * cos.calculate(x, eps)\n                * sec.calculate(x, eps) / tan.calculate(x, eps);\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/itmo/funcs/comlex/FirstFunc.java b/src/main/java/ru/itmo/funcs/comlex/FirstFunc.java
+--- a/src/main/java/ru/itmo/funcs/comlex/FirstFunc.java	(revision 2d7d15967ac5b1e4200f0d629a881c6e174da55d)
++++ b/src/main/java/ru/itmo/funcs/comlex/FirstFunc.java	(date 1712307218661)
+@@ -1,8 +1,9 @@
+ package ru.itmo.funcs.comlex;
+ 
++import ru.itmo.funcs.Func;
+ import ru.itmo.funcs.basic.trig.*;
+ 
+-public class FirstFunc {
++public class FirstFunc implements Func {
+     private final CscFunc csc;
+     private final CosFunc cos;
+     private final TanFunc tan;
+@@ -17,6 +18,7 @@
+         this.sec = sec;
+     }
+ 
++    @Override
+     public double calculate(double x, double eps) {
+         return (csc.calculate(x, eps) * csc.calculate(x, eps)
+                 - cot.calculate(x, eps) / tan.calculate(x, eps))
+Index: src/main/java/ru/itmo/funcs/comlex/SecondFunc.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.itmo.funcs.comlex;\n\nimport ru.itmo.funcs.basic.logarithmic.LnFunc;\nimport ru.itmo.funcs.basic.logarithmic.Log3Func;\nimport ru.itmo.funcs.basic.logarithmic.Log5Func;\n\npublic class SecondFunc {\n    private final LnFunc ln;\n    private final Log3Func log3;\n    private final Log5Func log5;\n\n    public SecondFunc(LnFunc ln, Log3Func log3, Log5Func log5) {\n        this.ln = ln;\n        this.log3 = log3;\n        this.log5 = log5;\n    }\n\n    public double calculate(double x, double eps) {\n        return ln.calculate(x*x, eps) * ln.calculate(x*x, eps) * log3.calculate(x, eps)\n                / log3.calculate(x, eps) / log5.calculate(x*x, eps);\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/itmo/funcs/comlex/SecondFunc.java b/src/main/java/ru/itmo/funcs/comlex/SecondFunc.java
+--- a/src/main/java/ru/itmo/funcs/comlex/SecondFunc.java	(revision 2d7d15967ac5b1e4200f0d629a881c6e174da55d)
++++ b/src/main/java/ru/itmo/funcs/comlex/SecondFunc.java	(date 1712307218667)
+@@ -1,10 +1,11 @@
+ package ru.itmo.funcs.comlex;
+ 
++import ru.itmo.funcs.Func;
+ import ru.itmo.funcs.basic.logarithmic.LnFunc;
+ import ru.itmo.funcs.basic.logarithmic.Log3Func;
+ import ru.itmo.funcs.basic.logarithmic.Log5Func;
+ 
+-public class SecondFunc {
++public class SecondFunc implements Func {
+     private final LnFunc ln;
+     private final Log3Func log3;
+     private final Log5Func log5;
+@@ -15,6 +16,7 @@
+         this.log5 = log5;
+     }
+ 
++    @Override
+     public double calculate(double x, double eps) {
+         return ln.calculate(x*x, eps) * ln.calculate(x*x, eps) * log3.calculate(x, eps)
+                 / log3.calculate(x, eps) / log5.calculate(x*x, eps);
+Index: src/main/java/ru/itmo/systems/MainSystem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.itmo.systems;\n\nimport ru.itmo.funcs.comlex.FirstFunc;\nimport ru.itmo.funcs.comlex.SecondFunc;\n\npublic class MainSystem {\n    private final FirstFunc firstFunc;\n    private final SecondFunc secondFunc;\n\n    public MainSystem(FirstFunc firstFunc, SecondFunc secondFunc) {\n        this.firstFunc = firstFunc;\n        this.secondFunc = secondFunc;\n    }\n\n    public double calculate(double x, double eps) {\n        if (x > 0) {\n            return firstFunc.calculate(x, eps);\n        } else {\n            return secondFunc.calculate(x, eps);\n        }\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/itmo/systems/MainSystem.java b/src/main/java/ru/itmo/systems/MainSystem.java
+--- a/src/main/java/ru/itmo/systems/MainSystem.java	(revision 2d7d15967ac5b1e4200f0d629a881c6e174da55d)
++++ b/src/main/java/ru/itmo/systems/MainSystem.java	(date 1712307384320)
+@@ -1,9 +1,10 @@
+ package ru.itmo.systems;
+ 
++import ru.itmo.funcs.Func;
+ import ru.itmo.funcs.comlex.FirstFunc;
+ import ru.itmo.funcs.comlex.SecondFunc;
+ 
+-public class MainSystem {
++public class MainSystem implements Func {
+     private final FirstFunc firstFunc;
+     private final SecondFunc secondFunc;
+ 
+@@ -12,6 +13,7 @@
+         this.secondFunc = secondFunc;
+     }
+ 
++    @Override
+     public double calculate(double x, double eps) {
+         if (x > 0) {
+             return firstFunc.calculate(x, eps);
+Index: src/main/java/ru/itmo/funcs/basic/trig/SinFunc.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.itmo.funcs.basic.trig;\n\nimport ru.itmo.funcs.basic.FactorialFunc;\n\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\nimport java.util.Objects;\n\npublic class SinFunc {\n    protected static final int DEFAULT_MAX_ITERATIONS = 2000;\n\n//    функция вычисляет приближённое значение ряда Тейлора для sin(x) c\n//    использованием факториала\n    public double calculate(double x, double eps) {\n        if (eps > 0.5 || eps <= 0) {\n            throw new IllegalArgumentException(\"eps must be in range (0; 0.5]\");\n        }\n\n        BigDecimal result = new BigDecimal(\"0\");\n        int n = 0;\n        BigDecimal prev;\n\n        do {\n            prev = result;\n            result = result\n                    .add(new BigDecimal(-1).pow(n).multiply(new BigDecimal(x).pow(2 * n + 1))\n                        .divide(new BigDecimal(FactorialFunc.calculate(2*n + 1)),20, RoundingMode.HALF_UP));\n            n++;\n        } while (Math.abs(result.subtract(prev).doubleValue()) >= eps && n < DEFAULT_MAX_ITERATIONS);\n\n        if (n == DEFAULT_MAX_ITERATIONS) {\n            throw new IllegalArgumentException(\"too much iterations. :( Choose a smaller x value..\");\n        }\n\n        return result.doubleValue();\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/itmo/funcs/basic/trig/SinFunc.java b/src/main/java/ru/itmo/funcs/basic/trig/SinFunc.java
+--- a/src/main/java/ru/itmo/funcs/basic/trig/SinFunc.java	(revision 2d7d15967ac5b1e4200f0d629a881c6e174da55d)
++++ b/src/main/java/ru/itmo/funcs/basic/trig/SinFunc.java	(date 1712307218687)
+@@ -1,17 +1,19 @@
+ package ru.itmo.funcs.basic.trig;
+ 
++import ru.itmo.funcs.Func;
+ import ru.itmo.funcs.basic.FactorialFunc;
+ 
+ import java.math.BigDecimal;
+ import java.math.RoundingMode;
+ import java.util.Objects;
+ 
+-public class SinFunc {
++public class SinFunc implements Func {
+     protected static final int DEFAULT_MAX_ITERATIONS = 2000;
+ 
+ //    функция вычисляет приближённое значение ряда Тейлора для sin(x) c
+ //    использованием факториала
+-    public double calculate(double x, double eps) {
++    @Override
++    public double calculate(double x, double eps)  {
+         if (eps > 0.5 || eps <= 0) {
+             throw new IllegalArgumentException("eps must be in range (0; 0.5]");
+         }
+Index: src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.itmo.funcs.basic.logarithmic;\n\npublic class LnFunc {\n    protected static final int DEFAULT_MAX_ITERATIONS = 2000;\n\n//    функция вычисляет приближённое значение ряда Тейлора для ln(x)\n    public double calculate(double x, double eps) {\n        if (x <= 0) {\n            throw new IllegalArgumentException(\"x can't be negative :(\");\n        }\n        if (eps > 0.5 || eps <= 0) {\n            throw new IllegalArgumentException(\"eps must be in range (0; 0.5]\");\n        }\n\n        double k = ((x - 1) * (x - 1))/((x + 1) * (x + 1));\n        double result = 0;\n        double currentValue = (x - 1)/(x + 1);\n        int step = 1;\n\n        while(Math.abs(currentValue) > eps/1000 && step <= DEFAULT_MAX_ITERATIONS) {\n            result += currentValue;\n            currentValue = currentValue * k * (2*step - 1) / (2*step + 1);\n            step++;\n        }\n\n        if (step == DEFAULT_MAX_ITERATIONS) {\n            throw new IllegalArgumentException(\"too much iterations. :( Choose a smaller x value..\");\n        }\n\n        result *= 2;\n        return result;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java b/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java
+--- a/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java	(revision 2d7d15967ac5b1e4200f0d629a881c6e174da55d)
++++ b/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java	(date 1712307218649)
+@@ -1,9 +1,12 @@
+ package ru.itmo.funcs.basic.logarithmic;
+ 
+-public class LnFunc {
++import ru.itmo.funcs.Func;
++
++public class LnFunc implements Func {
+     protected static final int DEFAULT_MAX_ITERATIONS = 2000;
+ 
+ //    функция вычисляет приближённое значение ряда Тейлора для ln(x)
++    @Override
+     public double calculate(double x, double eps) {
+         if (x <= 0) {
+             throw new IllegalArgumentException("x can't be negative :(");
+Index: src/main/java/ru/itmo/funcs/basic/trig/CosFunc.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.itmo.funcs.basic.trig;\n\npublic class CosFunc {\n    private final SinFunc sin;\n\n    public CosFunc (SinFunc sin) {\n        this.sin = sin;\n    }\n\n    public double calculate(double x, double eps) {\n        if (isCosPositive(x)) {\n            return Math.sqrt(1 - Math.pow(sin.calculate(x, eps), 2));\n        }\n        return - Math.sqrt(1 - Math.pow(sin.calculate(x, eps), 2));\n    }\n\n    public boolean isCosPositive(double x) {\n        // нормализуем угол в диапазон от 0 до 2π\n        double normalizedX = x % (2 * Math.PI);\n        if (normalizedX < 0) {\n            normalizedX += 2 * Math.PI;\n        }\n    \n        // определяем четверть\n        if (normalizedX >= 0 && normalizedX <= Math.PI / 2 ||\n            normalizedX >= 3 * Math.PI / 2 && normalizedX <= 2 * Math.PI) {\n            // 1 и 4 четверти\n            return true;\n        }\n        // 2 и 3 четверти\n        return false;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/itmo/funcs/basic/trig/CosFunc.java b/src/main/java/ru/itmo/funcs/basic/trig/CosFunc.java
+--- a/src/main/java/ru/itmo/funcs/basic/trig/CosFunc.java	(revision 2d7d15967ac5b1e4200f0d629a881c6e174da55d)
++++ b/src/main/java/ru/itmo/funcs/basic/trig/CosFunc.java	(date 1712307218702)
+@@ -1,12 +1,15 @@
+ package ru.itmo.funcs.basic.trig;
+ 
+-public class CosFunc {
++import ru.itmo.funcs.Func;
++
++public class CosFunc implements Func {
+     private final SinFunc sin;
+ 
+     public CosFunc (SinFunc sin) {
+         this.sin = sin;
+     }
+ 
++    @Override
+     public double calculate(double x, double eps) {
+         if (isCosPositive(x)) {
+             return Math.sqrt(1 - Math.pow(sin.calculate(x, eps), 2));
+Index: src/main/java/ru/itmo/funcs/basic/trig/CscFunc.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.itmo.funcs.basic.trig;\n\npublic class CscFunc {\n    private final SinFunc sin;\n\n\n    public CscFunc(SinFunc sin) {\n        this.sin = sin;\n    }\n\n    public double calculate(double x, double eps) {\n        return 1/sin.calculate(x, eps);\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/itmo/funcs/basic/trig/CscFunc.java b/src/main/java/ru/itmo/funcs/basic/trig/CscFunc.java
+--- a/src/main/java/ru/itmo/funcs/basic/trig/CscFunc.java	(revision 2d7d15967ac5b1e4200f0d629a881c6e174da55d)
++++ b/src/main/java/ru/itmo/funcs/basic/trig/CscFunc.java	(date 1712307218691)
+@@ -1,6 +1,8 @@
+ package ru.itmo.funcs.basic.trig;
+ 
+-public class CscFunc {
++import ru.itmo.funcs.Func;
++
++public class CscFunc implements Func {
+     private final SinFunc sin;
+ 
+ 
+@@ -8,6 +10,7 @@
+         this.sin = sin;
+     }
+ 
++    @Override
+     public double calculate(double x, double eps) {
+         return 1/sin.calculate(x, eps);
+     }
+Index: src/main/java/ru/itmo/funcs/basic/trig/SecFunc.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.itmo.funcs.basic.trig;\n\npublic class SecFunc {\n    private final CosFunc cos;\n\n    public SecFunc(CosFunc cos) {\n        this.cos = cos;\n    }\n\n    public double calculate(double x, double eps) {\n        return 1/cos.calculate(x, eps);\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/itmo/funcs/basic/trig/SecFunc.java b/src/main/java/ru/itmo/funcs/basic/trig/SecFunc.java
+--- a/src/main/java/ru/itmo/funcs/basic/trig/SecFunc.java	(revision 2d7d15967ac5b1e4200f0d629a881c6e174da55d)
++++ b/src/main/java/ru/itmo/funcs/basic/trig/SecFunc.java	(date 1712307218670)
+@@ -1,12 +1,15 @@
+ package ru.itmo.funcs.basic.trig;
+ 
+-public class SecFunc {
++import ru.itmo.funcs.Func;
++
++public class SecFunc implements Func {
+     private final CosFunc cos;
+ 
+     public SecFunc(CosFunc cos) {
+         this.cos = cos;
+     }
+ 
++    @Override
+     public double calculate(double x, double eps) {
+         return 1/cos.calculate(x, eps);
+     }
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"da1a3ff4-643b-466c-b180-7fb6e52d9b35\" name=\"Changes\" comment=\"sinFunc done\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/build.gradle.kts\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/build.gradle.kts\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/ru/itmo/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/ru/itmo/Main.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ExternalProjectsData\">\n    <projectState path=\"$PROJECT_DIR$\">\n      <ProjectState />\n    </projectState>\n  </component>\n  <component name=\"ExternalProjectsManager\">\n    <system id=\"GRADLE\">\n      <state>\n        <projects_view>\n          <tree_state>\n            <expand>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"software_testing_lab_2\" type=\"f1a62948:ProjectNode\" />\n              </path>\n            </expand>\n            <select />\n          </tree_state>\n        </projects_view>\n      </state>\n    </system>\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 0\n}</component>\n  <component name=\"ProjectId\" id=\"2ecy4gMRobHz1zlYl0YMiC77ZNf\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"Gradle.software_testing_lab_2 [:Main.main()].executor\": \"Run\",\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\n    \"kotlin-language-version-configured\": \"true\",\n    \"last_opened_file_path\": \"/Users/yana/Documents/dev/software_testing/software_testing_lab_2\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.detected.package.tslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\n    \"nodejs_package_manager_path\": \"npm\",\n    \"project.structure.last.edited\": \"Modules\",\n    \"project.structure.proportion\": \"0.0\",\n    \"project.structure.side.proportion\": \"0.0\",\n    \"vue.rearranger.settings.migration\": \"true\"\n  }\n}]]></component>\n  <component name=\"RunManager\">\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"ru.itmo.Main\" />\n      <module name=\"software_testing_lab_2.main\" />\n      <extension name=\"coverage\">\n        <pattern>\n          <option name=\"PATTERN\" value=\"ru.itmo.*\" />\n          <option name=\"ENABLED\" value=\"true\" />\n        </pattern>\n      </extension>\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Application.Main\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"jdk-21.0.2-openjdk-21.0.2-3183f394aec4-74f1fbcb\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"da1a3ff4-643b-466c-b180-7fb6e52d9b35\" name=\"Changes\" comment=\"\" />\n      <created>1712217975059</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1712217975059</updated>\n      <workItem from=\"1712217976679\" duration=\"1647000\" />\n      <workItem from=\"1712219742757\" duration=\"15244000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"sinFunc done\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1712259400706</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1712259400706</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"2\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"sinFunc done\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"sinFunc done\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 2d7d15967ac5b1e4200f0d629a881c6e174da55d)
++++ b/.idea/workspace.xml	(date 1712322950082)
+@@ -5,10 +5,22 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="da1a3ff4-643b-466c-b180-7fb6e52d9b35" name="Changes" comment="sinFunc done">
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/logs/sin.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/sin.csv" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/CsvWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/CsvWriter.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/Main.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/Func.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/Func.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/Log3Func.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/Log3Func.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/Log5Func.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/Log5Func.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CosFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CosFunc.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CotFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CotFunc.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CscFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CscFunc.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/SecFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/SecFunc.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/SinFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/SinFunc.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/TanFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/TanFunc.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/comlex/FirstFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/comlex/FirstFunc.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/comlex/SecondFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/comlex/SecondFunc.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/systems/MainSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/systems/MainSystem.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -41,6 +53,7 @@
+     <option name="RECENT_TEMPLATES">
+       <list>
+         <option value="Class" />
++        <option value="Interface" />
+       </list>
+     </option>
+   </component>
+@@ -68,12 +81,18 @@
+     "node.js.selected.package.eslint": "(autodetect)",
+     "node.js.selected.package.tslint": "(autodetect)",
+     "nodejs_package_manager_path": "npm",
+-    "project.structure.last.edited": "Modules",
+-    "project.structure.proportion": "0.0",
+-    "project.structure.side.proportion": "0.0",
++    "project.structure.last.edited": "Problems",
++    "project.structure.proportion": "0.15",
++    "project.structure.side.proportion": "0.2",
+     "vue.rearranger.settings.migration": "true"
+   }
+ }]]></component>
++  <component name="RecentsManager">
++    <key name="MoveFile.RECENT_KEYS">
++      <recent name="$PROJECT_DIR$" />
++      <recent name="$PROJECT_DIR$/src/main" />
++    </key>
++  </component>
+   <component name="RunManager">
+     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="ru.itmo.Main" />
+@@ -110,7 +129,7 @@
+       <option name="presentableId" value="Default" />
+       <updated>1712217975059</updated>
+       <workItem from="1712217976679" duration="1647000" />
+-      <workItem from="1712219742757" duration="15244000" />
++      <workItem from="1712219742757" duration="19148000" />
+     </task>
+     <task id="LOCAL-00001" summary="sinFunc done">
+       <option name="closed" value="true" />
+Index: src/main/java/ru/itmo/funcs/basic/trig/CotFunc.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.itmo.funcs.basic.trig;\n\npublic class CotFunc {\n    private final SinFunc sin;\n    private final CosFunc cos;\n\n    public CotFunc (SinFunc sin, CosFunc cos) {\n        this.sin = sin;\n        this.cos = cos;\n    }\n\n    public double calculate(double x, double eps) {\n        return cos.calculate(x, eps)/sin.calculate(x, eps);\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/itmo/funcs/basic/trig/CotFunc.java b/src/main/java/ru/itmo/funcs/basic/trig/CotFunc.java
+--- a/src/main/java/ru/itmo/funcs/basic/trig/CotFunc.java	(revision 2d7d15967ac5b1e4200f0d629a881c6e174da55d)
++++ b/src/main/java/ru/itmo/funcs/basic/trig/CotFunc.java	(date 1712307218664)
+@@ -1,6 +1,8 @@
+ package ru.itmo.funcs.basic.trig;
+ 
+-public class CotFunc {
++import ru.itmo.funcs.Func;
++
++public class CotFunc implements Func {
+     private final SinFunc sin;
+     private final CosFunc cos;
+ 
+@@ -9,6 +11,7 @@
+         this.cos = cos;
+     }
+ 
++    @Override
+     public double calculate(double x, double eps) {
+         return cos.calculate(x, eps)/sin.calculate(x, eps);
+     }

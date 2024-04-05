@@ -5,10 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da1a3ff4-643b-466c-b180-7fb6e52d9b35" name="Changes" comment="sinFunc done">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/sin.csv" beforeDir="false" afterPath="$PROJECT_DIR$/logs/sin.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/CsvWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/CsvWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/Func.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/Func.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/Log3Func.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/Log3Func.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/Log5Func.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/Log5Func.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CosFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CosFunc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CotFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CotFunc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CscFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CscFunc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/SecFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/SecFunc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/SinFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/SinFunc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/TanFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/TanFunc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/comlex/FirstFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/comlex/FirstFunc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/comlex/SecondFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/comlex/SecondFunc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/systems/MainSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/systems/MainSystem.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +53,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -68,12 +81,18 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/main" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ru.itmo.Main" />
@@ -110,7 +129,7 @@
       <option name="presentableId" value="Default" />
       <updated>1712217975059</updated>
       <workItem from="1712217976679" duration="1647000" />
-      <workItem from="1712219742757" duration="15244000" />
+      <workItem from="1712219742757" duration="19148000" />
     </task>
     <task id="LOCAL-00001" summary="sinFunc done">
       <option name="closed" value="true" />

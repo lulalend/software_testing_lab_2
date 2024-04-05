@@ -1,12 +1,15 @@
 package ru.itmo.funcs.basic.trig;
 
-public class CosFunc {
+import ru.itmo.funcs.Func;
+
+public class CosFunc implements Func {
     private final SinFunc sin;
 
     public CosFunc (SinFunc sin) {
         this.sin = sin;
     }
 
+    @Override
     public double calculate(double x, double eps) {
         if (isCosPositive(x)) {
             return Math.sqrt(1 - Math.pow(sin.calculate(x, eps), 2));

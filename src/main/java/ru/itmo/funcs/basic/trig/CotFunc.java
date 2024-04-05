@@ -1,6 +1,8 @@
 package ru.itmo.funcs.basic.trig;
 
-public class CotFunc {
+import ru.itmo.funcs.Func;
+
+public class CotFunc implements Func {
     private final SinFunc sin;
     private final CosFunc cos;
 
@@ -9,6 +11,7 @@ public class CotFunc {
         this.cos = cos;
     }
 
+    @Override
     public double calculate(double x, double eps) {
         return cos.calculate(x, eps)/sin.calculate(x, eps);
     }

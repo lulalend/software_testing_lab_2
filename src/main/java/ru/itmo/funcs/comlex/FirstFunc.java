@@ -1,8 +1,9 @@
 package ru.itmo.funcs.comlex;
 
+import ru.itmo.funcs.Func;
 import ru.itmo.funcs.basic.trig.*;
 
-public class FirstFunc {
+public class FirstFunc implements Func {
     private final CscFunc csc;
     private final CosFunc cos;
     private final TanFunc tan;
@@ -17,6 +18,7 @@ public class FirstFunc {
         this.sec = sec;
     }
 
+    @Override
     public double calculate(double x, double eps) {
         return (csc.calculate(x, eps) * csc.calculate(x, eps)
                 - cot.calculate(x, eps) / tan.calculate(x, eps))

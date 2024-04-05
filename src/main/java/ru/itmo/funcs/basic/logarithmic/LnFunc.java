@@ -1,9 +1,12 @@
 package ru.itmo.funcs.basic.logarithmic;
 
-public class LnFunc {
+import ru.itmo.funcs.Func;
+
+public class LnFunc implements Func {
     protected static final int DEFAULT_MAX_ITERATIONS = 2000;
 
 //    функция вычисляет приближённое значение ряда Тейлора для ln(x)
+    @Override
     public double calculate(double x, double eps) {
         if (x <= 0) {
             throw new IllegalArgumentException("x can't be negative :(");
