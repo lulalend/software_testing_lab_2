@@ -4,6 +4,7 @@ import ru.itmo.funcs.Func;
 import ru.itmo.funcs.basic.logarithmic.LnFunc;
 import ru.itmo.funcs.basic.logarithmic.Log3Func;
 import ru.itmo.funcs.basic.trig.CosFunc;
+import ru.itmo.funcs.basic.trig.CotFunc;
 import ru.itmo.funcs.basic.trig.SinFunc;
 import ru.itmo.funcs.basic.trig.TanFunc;
 import ru.itmo.funcs.comlex.FirstFunc;
@@ -18,7 +19,7 @@ public class Main {
         try {
             SinFunc sin = new SinFunc();
             CosFunc cos = new CosFunc(sin);
-            TanFunc tan = new TanFunc(sin, cos);
+            CotFunc tan = new CotFunc(sin, cos);
             System.out.println(tan.calculate(3*Math.PI/2, 0.00001));
 
 //            LnFunc ln = new LnFunc();

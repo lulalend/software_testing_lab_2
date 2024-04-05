@@ -13,6 +13,9 @@ public class CotFunc implements Func {
 
     @Override
     public double calculate(double x, double eps) {
+        if (x % (Math.PI) == 0.0) {
+            throw new IllegalArgumentException("cot in k*PI doesn't exist");
+        }
         return cos.calculate(x, eps)/sin.calculate(x, eps);
     }
 
