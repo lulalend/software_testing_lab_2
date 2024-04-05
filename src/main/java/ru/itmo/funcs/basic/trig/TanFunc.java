@@ -13,7 +13,7 @@ public class TanFunc implements Func {
 
     @Override
     public double calculate(double x, double eps) {
-        if (x % (Math.PI/2) == 0.0) {
+        if (x % (Math.PI/2) == 0.0 && x % (Math.PI) != 0.0) {
             throw new IllegalArgumentException("tan in k*PI/2 doesn't exist");
         }
         return sin.calculate(x, eps)/cos.calculate(x, eps);
