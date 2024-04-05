@@ -39,6 +39,12 @@ public class SecondFuncTest extends BasicTest {
     }
 
     @ParameterizedTest
+    @MethodSource("nearZeroValues")
+    public void testNearZeroValues(double x, double expected) {
+        assertEquals(expected, secondFunc.calculate(x, PRECISION), PRECISION);
+    }
+
+    @ParameterizedTest
     @MethodSource("illegalValues")
     public void testIllegalValues(double x) {
         assertThrows(IllegalArgumentException.class, () -> secondFunc.calculate(x, PRECISION));
@@ -57,6 +63,14 @@ public class SecondFuncTest extends BasicTest {
             Arguments.of(5, 5.18058),
             Arguments.of(0.01, -14.32356),
             Arguments.of(200, 15.086825)
+        );
+    }
+
+    private static Stream<Arguments> nearZeroValues() {
+        return Stream.of(
+            Arguments.of(0.5, -2.23115),
+            Arguments.of(0.15, -6.10659),
+            Arguments.of(0.015, -13.41415)
         );
     }
 
