@@ -4,6 +4,7 @@ import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -14,10 +15,16 @@ import ru.itmo.funcs.basic.trig.SinFunc;
 public class SinFuncTest extends BasicTest {
     
     private SinFunc sin;
+    private final double WRONG_PRECISION = 0.6;
 
     @BeforeEach
     public void setUp() {
         sin = new SinFunc();
+    }
+
+    @Test
+    public void testIllegalArgumentException () {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> sin.calculate(1, WRONG_PRECISION));
     }
 
     @ParameterizedTest
