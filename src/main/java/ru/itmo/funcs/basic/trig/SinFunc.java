@@ -4,7 +4,6 @@ import ru.itmo.funcs.basic.FactorialFunc;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Objects;
 
 public class SinFunc {
     protected static final int DEFAULT_MAX_ITERATIONS = 2000;
