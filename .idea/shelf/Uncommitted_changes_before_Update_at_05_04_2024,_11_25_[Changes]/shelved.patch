@@ -1,0 +1,188 @@
+Index: src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.itmo.funcs.basic.logarithmic;\n\npublic class LnFunc {\n//    функция вычисляет приближённое значение ряда Тейлора для sin(x) c\n//    использованием факториала\n    public double calculate(double x, double eps) {\n        if (x <= 0) {\n            throw new IllegalArgumentException(\"x must be non-negative :(\");\n        }\n\n        double k = ((x - 1) * (x - 1))/((x + 1) * (x + 1));\n        double result = 0;\n        double currentValue = (x - 1)/(x + 1);\n        int step = 1;\n\n        while(Math.abs(currentValue) > eps/1000) {\n            result += currentValue;\n            currentValue = currentValue * k * (2*step - 1) / (2*step + 1);\n            step++;\n        }\n\n        result *= 2;\n        return result;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java b/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java
+--- a/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java	(revision 336c05054c7ed721c5d0acb1b3b9c3cd20fa6f97)
++++ b/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java	(date 1712259465440)
+@@ -1,11 +1,10 @@
+ package ru.itmo.funcs.basic.logarithmic;
+ 
+ public class LnFunc {
+-//    функция вычисляет приближённое значение ряда Тейлора для sin(x) c
+-//    использованием факториала
++//    функция вычисляет приближённое значение ряда Тейлора для ln(x)
+     public double calculate(double x, double eps) {
+         if (x <= 0) {
+-            throw new IllegalArgumentException("x must be non-negative :(");
++            throw new IllegalArgumentException("x can't be negative :(");
+         }
+ 
+         double k = ((x - 1) * (x - 1))/((x + 1) * (x + 1));
+Index: build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\n    id(\"java\")\n}\n\ngroup = \"ru.itmo\"\nversion = \"1.0-SNAPSHOT\"\n\nrepositories {\n    mavenCentral()\n}\n\ndependencies {\n    testImplementation(platform(\"org.junit:junit-bom:5.9.1\"))\n    testImplementation(\"org.junit.jupiter:junit-jupiter\")\n}\n\ntasks.test {\n    useJUnitPlatform()\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build.gradle.kts b/build.gradle.kts
+--- a/build.gradle.kts	(revision 336c05054c7ed721c5d0acb1b3b9c3cd20fa6f97)
++++ b/build.gradle.kts	(date 1712261188273)
+@@ -12,6 +12,7 @@
+ dependencies {
+     testImplementation(platform("org.junit:junit-bom:5.9.1"))
+     testImplementation("org.junit.jupiter:junit-jupiter")
++    testImplementation("org.mockito:mockito-junit-jupiter:4.2.0")
+ }
+ 
+ tasks.test {
+Index: src/main/java/ru/itmo/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.itmo;\n\nimport ru.itmo.funcs.basic.trig.SinFunc;\n\npublic class Main {\n    public static void main(String[] args) {\n        SinFunc sin = new SinFunc();\n        System.out.println(sin.calculate(-Math.PI / 2, 0.00001));\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/itmo/Main.java b/src/main/java/ru/itmo/Main.java
+--- a/src/main/java/ru/itmo/Main.java	(revision 336c05054c7ed721c5d0acb1b3b9c3cd20fa6f97)
++++ b/src/main/java/ru/itmo/Main.java	(date 1712259687639)
+@@ -1,10 +1,11 @@
+ package ru.itmo;
+ 
++import ru.itmo.funcs.basic.logarithmic.LnFunc;
+ import ru.itmo.funcs.basic.trig.SinFunc;
+ 
+ public class Main {
+     public static void main(String[] args) {
+-        SinFunc sin = new SinFunc();
+-        System.out.println(sin.calculate(-Math.PI / 2, 0.00001));
++        LnFunc ln = new LnFunc();
++        System.out.println(ln.calculate(30, 0.00001));
+     }
+ }
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"da1a3ff4-643b-466c-b180-7fb6e52d9b35\" name=\"Changes\" comment=\"\">\n      <change afterPath=\"$PROJECT_DIR$/.idea/uiDesigner.xml\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/FactorialFunc.java\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/Log3Func.java\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/Log5Func.java\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CosFunc.java\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CotFunc.java\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CscFunc.java\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/SecFunc.java\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/SinFunc.java\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/TanFunc.java\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/ru/itmo/funcs/comlex/FirstFunc.java\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/ru/itmo/funcs/comlex/SecondFunc.java\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/ru/itmo/systems/MainSystem.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/gradle.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/gradle.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/vcs.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/vcs.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/settings.gradle.kts\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/settings.gradle.kts\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/FactorialFunction.java\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/SinFunction.java\" beforeDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ExternalProjectsData\">\n    <projectState path=\"$PROJECT_DIR$\">\n      <ProjectState />\n    </projectState>\n  </component>\n  <component name=\"ExternalProjectsManager\">\n    <system id=\"GRADLE\">\n      <state>\n        <projects_view>\n          <tree_state>\n            <expand>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"software_testing_lab_2\" type=\"f1a62948:ProjectNode\" />\n              </path>\n            </expand>\n            <select />\n          </tree_state>\n        </projects_view>\n      </state>\n    </system>\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 0\n}</component>\n  <component name=\"ProjectId\" id=\"2ecy4gMRobHz1zlYl0YMiC77ZNf\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\n    \"kotlin-language-version-configured\": \"true\",\n    \"last_opened_file_path\": \"/Users/yana/Documents/dev/software_testing/software_testing_lab_2\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.detected.package.tslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\n    \"nodejs_package_manager_path\": \"npm\",\n    \"vue.rearranger.settings.migration\": \"true\"\n  }\n}]]></component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"jdk-21.0.2-openjdk-21.0.2-3183f394aec4-74f1fbcb\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"da1a3ff4-643b-466c-b180-7fb6e52d9b35\" name=\"Changes\" comment=\"\" />\n      <created>1712217975059</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1712217975059</updated>\n      <workItem from=\"1712217976679\" duration=\"1647000\" />\n      <workItem from=\"1712219742757\" duration=\"5860000\" />\n    </task>\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 336c05054c7ed721c5d0acb1b3b9c3cd20fa6f97)
++++ b/.idea/workspace.xml	(date 1712305522151)
+@@ -4,27 +4,11 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="da1a3ff4-643b-466c-b180-7fb6e52d9b35" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/FactorialFunc.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/Log3Func.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/Log5Func.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CosFunc.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CotFunc.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/CscFunc.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/SecFunc.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/SinFunc.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/TanFunc.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/comlex/FirstFunc.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/comlex/SecondFunc.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/systems/MainSystem.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
++    <list default="true" id="da1a3ff4-643b-466c-b180-7fb6e52d9b35" name="Changes" comment="sinFunc done">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/FactorialFunction.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/trig/SinFunction.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/Main.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/funcs/basic/logarithmic/LnFunc.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -73,6 +57,7 @@
+   </component>
+   <component name="PropertiesComponent"><![CDATA[{
+   "keyToString": {
++    "Gradle.software_testing_lab_2 [:Main.main()].executor": "Run",
+     "RunOnceActivity.OpenProjectViewOnStart": "true",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+@@ -83,9 +68,32 @@
+     "node.js.selected.package.eslint": "(autodetect)",
+     "node.js.selected.package.tslint": "(autodetect)",
+     "nodejs_package_manager_path": "npm",
++    "project.structure.last.edited": "Modules",
++    "project.structure.proportion": "0.0",
++    "project.structure.side.proportion": "0.0",
+     "vue.rearranger.settings.migration": "true"
+   }
+ }]]></component>
++  <component name="RunManager">
++    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="ru.itmo.Main" />
++      <module name="software_testing_lab_2.main" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="ru.itmo.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <recent_temporary>
++      <list>
++        <item itemvalue="Application.Main" />
++      </list>
++    </recent_temporary>
++  </component>
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+@@ -102,11 +110,35 @@
+       <option name="presentableId" value="Default" />
+       <updated>1712217975059</updated>
+       <workItem from="1712217976679" duration="1647000" />
+-      <workItem from="1712219742757" duration="5860000" />
++      <workItem from="1712219742757" duration="15244000" />
+     </task>
++    <task id="LOCAL-00001" summary="sinFunc done">
++      <option name="closed" value="true" />
++      <created>1712259400706</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1712259400706</updated>
++    </task>
++    <option name="localTasksCounter" value="2" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+     <option name="version" value="3" />
+   </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State />
++          </value>
++        </entry>
++      </map>
++    </option>
++  </component>
++  <component name="VcsManagerConfiguration">
++    <MESSAGE value="sinFunc done" />
++    <option name="LAST_COMMIT_MESSAGE" value="sinFunc done" />
++  </component>
+ </project>
+\ No newline at end of file

@@ -16,7 +16,7 @@ public class SecondFunc {
     }
 
     public double calculate(double x, double eps) {
-        return ln.calculate(x, eps) * ln.calculate(x, eps) * log3.calculate(x, eps)
-                / log3.calculate(x, eps) / log5.calculate(x, eps);
+        return ln.calculate(x*x, eps) * ln.calculate(x*x, eps) * log3.calculate(x, eps)
+                / log3.calculate(x, eps) / log5.calculate(x*x, eps);
     }
 }
