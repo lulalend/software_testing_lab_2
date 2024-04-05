@@ -5,7 +5,9 @@ import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import ru.itmo.BasicTest;
 import ru.itmo.funcs.basic.logarithmic.LnFunc;
@@ -13,6 +15,7 @@ import ru.itmo.funcs.basic.logarithmic.Log3Func;
 import ru.itmo.funcs.basic.logarithmic.Log5Func;
 import ru.itmo.funcs.comlex.SecondFunc;
 
+@ExtendWith(MockitoExtension.class)
 public class SecondFuncTestWithMocks extends BasicTest {
     @Mock
     private LnFunc lnFunc;
@@ -25,9 +28,6 @@ public class SecondFuncTestWithMocks extends BasicTest {
 
     @BeforeEach
     public void setUp() {
-        lnFunc = new LnFunc();
-        log3Func = new Log3Func(lnFunc);
-        log5Func = new Log5Func(lnFunc);
         secondFunc = new SecondFunc(lnFunc, log3Func, log5Func);
     }
 
