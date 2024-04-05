@@ -31,7 +31,7 @@ public class MainSystemTestWithMocks extends BasicTest{
     }
 
     @Test
-    public void testCalculatePositiveX() {
+    public void testCalculateNegativeX() {
         double x = -1.0;
         double firstFuncResult = -0.187444;
 
@@ -43,7 +43,7 @@ public class MainSystemTestWithMocks extends BasicTest{
     }
 
     @Test
-    public void testCalculateNegativeX() {
+    public void testCalculatePositiveX() {
         double x = 3.0;
         double secondFuncResult = 3.5363;
 
