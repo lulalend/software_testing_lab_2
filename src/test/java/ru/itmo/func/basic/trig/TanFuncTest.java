@@ -1,4 +1,4 @@
-package ru.itmo.basic.trig;
+package ru.itmo.func.basic.trig;
 
 import java.util.stream.Stream;
 

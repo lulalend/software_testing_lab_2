@@ -1,4 +1,4 @@
-package ru.itmo.complex;
+package ru.itmo.func.complex;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;

@@ -1,4 +1,4 @@
-package ru.itmo.complex;
+package ru.itmo.func.complex;
 
 import java.util.stream.Stream;
 

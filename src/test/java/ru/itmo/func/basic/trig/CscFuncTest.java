@@ -1,61 +1,57 @@
-package ru.itmo.basic.trig;
+package ru.itmo.func.basic.trig;
 
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import ru.itmo.BasicTest;
+import ru.itmo.funcs.basic.trig.CscFunc;
 import ru.itmo.funcs.basic.trig.SinFunc;
 
-public class SinFuncTest extends BasicTest {
-    
+public class CscFuncTest extends BasicTest{
     private SinFunc sin;
-    private final double WRONG_PRECISION = 0.6;
+    private CscFunc csc;
 
     @BeforeEach
     public void setUp() {
         sin = new SinFunc();
-    }
-
-    @Test
-    public void testIllegalArgumentException () {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> sin.calculate(1, WRONG_PRECISION));
+        csc = new CscFunc(sin);
     }
 
     @ParameterizedTest
-    @MethodSource("zeroValues")
-    public void testZeroValues(double x) {
-        Assertions.assertEquals(0, sin.calculate(x, PRECISION), PRECISION);
+    @MethodSource("illegalValues")
+    public void testIllegalValues(double x) {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> csc.calculate(x, PRECISION));
     }
 
     @ParameterizedTest
     @MethodSource("oneValues")
     public void testOneValues(double x) {
-        Assertions.assertEquals(1, sin.calculate(x, PRECISION), PRECISION);
+        Assertions.assertEquals(1, csc.calculate(x, PRECISION), PRECISION);
     }
 
     @ParameterizedTest
     @MethodSource("minusOneValues")
     public void testMinusOneValues(double x) {
-        Assertions.assertEquals(-1, sin.calculate(x, PRECISION), PRECISION);
+        Assertions.assertEquals(-1, csc.calculate(x, PRECISION), PRECISION);
     }
 
     @ParameterizedTest
     @MethodSource("middleValues")
     public void testMiddleValues(double x) {
-        Assertions.assertEquals(Math.sin(Math.PI / 4), sin.calculate(x, PRECISION), PRECISION);
+        Assertions.assertEquals(1 / Math.sin(Math.PI / 4), csc.calculate(x, PRECISION), PRECISION);
     }
 
-    private static Stream<Arguments> zeroValues() {
+    private static Stream<Arguments> illegalValues() {
         return Stream.of(
-                Arguments.of(0),
-                Arguments.of(Math.PI),
-                Arguments.of(Math.PI * 2));
+            Arguments.of(Math.PI),
+            Arguments.of(- Math.PI),
+            Arguments.of(2 * Math.PI),
+            Arguments.of(0));
     }
 
     private static Stream<Arguments> oneValues() {
@@ -87,4 +83,5 @@ public class SinFuncTest extends BasicTest {
                 Arguments.of(9 * Math.PI / 4),
                 Arguments.of(11 * Math.PI / 4));
     }
+
 }

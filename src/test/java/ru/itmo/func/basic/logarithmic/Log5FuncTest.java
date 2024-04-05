@@ -1,4 +1,4 @@
-package ru.itmo.basic.logarithmic;
+package ru.itmo.func.basic.logarithmic;
 
 import java.util.stream.Stream;
 

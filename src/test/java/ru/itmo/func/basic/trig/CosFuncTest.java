@@ -1,4 +1,4 @@
-package ru.itmo.basic.trig;
+package ru.itmo.func.basic.trig;
 
 import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.Mockito.mock;
