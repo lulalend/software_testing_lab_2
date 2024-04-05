@@ -12,5 +12,4 @@ public class Log3Func {
         result += ln.calculate(x, eps)/ln.calculate(3.0, eps);
         return result;
     }
-
 }
