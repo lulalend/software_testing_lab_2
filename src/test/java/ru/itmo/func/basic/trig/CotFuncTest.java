@@ -34,7 +34,7 @@ public class CotFuncTest extends BasicTest{
     @ParameterizedTest
     @MethodSource("zeroValues")
     public void testZeroValues(double x) {
-        Assertions.assertEquals(0, cot.calculate(x, PRECISION), PRECISION);
+        Assertions.assertEquals(0, cot.calculate(x, PRECISION_CUSTOM), PRECISION);
     }
 
     @ParameterizedTest
